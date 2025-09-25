@@ -14,7 +14,7 @@
 	RAL_IRQ_TX_DONE | RAL_IRQ_RX_DONE | RAL_IRQ_RX_HDR_ERROR | RAL_IRQ_RX_CRC_ERROR |          \
 		RAL_IRQ_CAD_DONE | RAL_IRQ_CAD_OK
 
-LOG_MODULE_REGISTER(lbm_driver, CONFIG_LORA_LOG_LEVEL);
+LOG_MODULE_REGISTER(lbm_driver, LOG_LEVEL_DBG);
 
 /**
  * @brief Attempt to acquire the modem for operations
@@ -70,18 +70,20 @@ int lbm_lora_config(const struct device *dev, struct lora_modem_config *lora_con
 	const struct lbm_lora_config_common *config = dev->config;
 	struct lbm_lora_data_common *data = dev->data;
 	ralf_params_lora_t params = {
-		.mod_params = {
-			.sf = lora_config->datarate,
-			.cr = lora_config->coding_rate,
-			.ldro = 0,
-		},
-		.pkt_params = {
-			.preamble_len_in_symb = lora_config->preamble_len,
-			.header_type = RAL_LORA_PKT_EXPLICIT,
-			.pld_len_in_bytes = UINT8_MAX,
-			.crc_is_on = true,
-			.invert_iq_is_on = lora_config->iq_inverted,
-		},
+		.mod_params =
+			{
+				.sf = lora_config->datarate,
+				.cr = lora_config->coding_rate,
+				.ldro = 0,
+			},
+		.pkt_params =
+			{
+				.preamble_len_in_symb = lora_config->preamble_len,
+				.header_type = RAL_LORA_PKT_EXPLICIT,
+				.pld_len_in_bytes = UINT8_MAX,
+				.crc_is_on = true,
+				.invert_iq_is_on = lora_config->iq_inverted,
+			},
 		.rf_freq_in_hz = lora_config->frequency,
 		.output_pwr_in_dbm = lora_config->tx_power,
 		.sync_word = lora_config->public_network ? LBM_LORA_SYNC_WORD_PUBLIC
@@ -192,6 +194,7 @@ int lbm_lora_send(const struct device *dev, uint8_t *msg, uint32_t msg_len)
 
 	/* Trigger the asynchronous send */
 	ret = lbm_lora_send_async(dev, msg, msg_len, &done);
+	LOG_DBG("lbm lora send async rc: %d", rc);
 	if (ret < 0) {
 		return ret;
 	}

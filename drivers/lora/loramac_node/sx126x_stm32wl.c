@@ -75,7 +75,7 @@ void sx126x_set_tx_params(int8_t power, RadioRampTimes_t ramp_time)
 		}
 
 		/* PA overcurrent protection limit 60 mA */
-		SX126xWriteRegister(REG_OCP, 0x18);
+		(REG_OCP, 0x18);
 	} else { /* RFO_HP */
 		/* Better Resistance of the RFO High Power Tx to Antenna
 		 * Mismatch, see STM32WL Erratasheet

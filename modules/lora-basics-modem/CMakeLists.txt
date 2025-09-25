@@ -17,7 +17,7 @@ if(CONFIG_USE_LORA_BASICS_MODEM_DRIVERS)
   zephyr_library_include_directories(${LBM_SMTC_MODEM_CORE_DIR}/smtc_ral/src)
   zephyr_library_include_directories(${LBM_SMTC_MODEM_CORE_DIR}/smtc_ralf/src)
 
-  if(CONFIG_LORA_SX126X)
+  if(CONFIG_LORA_SX126X OR CONFIG_LORA_STM32WL_SUBGHZ_RADIO)
     include(sx126x.cmake)
   elseif(CONFIG_LORA_SX127X)
     include(sx127x.cmake)

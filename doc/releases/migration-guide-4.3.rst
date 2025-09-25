@@ -114,7 +114,7 @@ Bluetooth Audio
   :c:enumerator:`BT_AUDIO_CODEC_CFG_TARGET_LATENCY_BALANCED` and ``target_phy`` to
   :c:enumerator:`BT_AUDIO_CODEC_CFG_TARGET_PHY_2M`.
   The :c:macro:`BT_AUDIO_CODEC_CFG` macro defaults to these values.
-  (:github:`93825``)
+  (:github:`93825`)
 * Setting the BGS role for GMAP now requires also supporting and implementing the
   :kconfig:option:`CONFIG_BT_BAP_BROADCAST_ASSISTANT`.
   See the :zephyr:code-sample:`bluetooth_bap_broadcast_assistant` sample as a reference.
@@ -122,7 +122,7 @@ Bluetooth Audio
   :c:func:`bt_bap_scan_delegator_set_pa_state` must be used to update the state. If the
   BAP Scan Delegator is used together with the BAP Broadcast Sink, then the PA state of the
   receive state of a  :c:struct:`bt_bap_broadcast_sink` will still be automatically updated when the
-  PA state changes. (:github:`95453``)
+  PA state changes. (:github:`95453`)
 
 
 .. zephyr-keep-sorted-stop
@@ -151,6 +151,14 @@ Ethernet
     * Replaced devicetree property ``tx-checksum-offload`` which enabled TX checksum offloading
       ``disable-tx-checksum-offload`` which now actively disables it.
 
+Power management
+****************
+
+* :kconfig:option:`CONFIG_PM_S2RAM` and :kconfig:option:`PM_S2RAM_CUSTOM_MARKING` have been
+  refactored to be automatically managed by SoCs and the devicetree. Applications shall no
+  longer enable them directly, instead, enable or disable the "suspend-to-ram" power states
+  in the devicetree.
+
 Networking
 **********
 
@@ -162,6 +170,11 @@ Networking
 .. zephyr-keep-sorted-start re(^\w)
 
 .. zephyr-keep-sorted-stop
+
+Modem
+*****
+
+* ``CONFIG_MODEM_AT_SHELL_USER_PIPE`` has been renamed to :kconfig:option:`CONFIG_MODEM_AT_USER_PIPE`.
 
 Display
 *******
